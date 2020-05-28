@@ -67,4 +67,12 @@ function animateSlides() {
     });
 }
 
+function cursor(e) {
+    let mouse = document.querySelector(".cursor");
+    mouse.style.top = e.pageY - 16 + "px";
+    mouse.style.left = e.pageX - 20 + "px";
+}
+
+window.addEventListener("mousemove", cursor);
+
 animateSlides();
