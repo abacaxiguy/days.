@@ -1,4 +1,8 @@
-let controller, slideScene, pageScene;
+let controller,
+    slideScene,
+    pageScene,
+    mouse = document.querySelector(".cursor"),
+    mouseTxt = mouse.querySelector("span");
 
 function animateSlides() {
     // Init controller
@@ -31,11 +35,11 @@ function animateSlides() {
             reverse: false,
         })
             .setTween(slideTl)
-            .addIndicators({
-                colorStart: "white",
-                colorTrigger: "white",
-                name: "slide",
-            })
+            // .addIndicators({
+            //     colorStart: "white",
+            //     colorTrigger: "white",
+            //     name: "slide",
+            // })
             .addTo(controller);
 
         // New animation
@@ -55,12 +59,12 @@ function animateSlides() {
             duration: "100%",
             triggerHook: 0,
         })
-            .addIndicators({
-                colorStart: "white",
-                colorTrigger: "white",
-                name: "page",
-                indent: 200,
-            })
+            // .addIndicators({
+            //     colorStart: "white",
+            //     colorTrigger: "white",
+            //     name: "page",
+            //     indent: 200,
+            // })
             .setPin(slide, { pushFollowers: false })
             .setTween(pageTl)
             .addTo(controller);
@@ -68,11 +72,33 @@ function animateSlides() {
 }
 
 function cursor(e) {
-    let mouse = document.querySelector(".cursor");
-    mouse.style.top = e.pageY - 16 + "px";
-    mouse.style.left = e.pageX - 20 + "px";
+    mouse.style.top = e.pageY + "px";
+    mouse.style.left = e.pageX + "px";
+}
+
+function activeCursor(e) {
+    const item = e.target;
+
+    // Nav effects
+    if (item.id === "logo" || item.classList.contains("burger")) {
+        mouse.classList.add("nav-active");
+    } else {
+        mouse.classList.remove("nav-active");
+    }
+
+    // Explore effects
+    if (item.classList.contains("explore")) {
+        mouse.classList.add("explore-active");
+        gsap.to(".title-swipe", 1, { y: "0%" });
+        mouseTxt.innerText = "Tap";
+    } else {
+        mouse.classList.remove("explore-active");
+        gsap.to(".title-swipe", 1, { y: "100%" });
+        mouseTxt.innerText = "";
+    }
 }
 
 window.addEventListener("mousemove", cursor);
+window.addEventListener("mouseover", activeCursor);
 
 animateSlides();
