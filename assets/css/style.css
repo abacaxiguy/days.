@@ -189,7 +189,7 @@ body {
 }
 
 .cursor.explore-active {
-    background: rgb(218, 218, 218);
+    background: white;
     transform: scale(3);
 }
 
