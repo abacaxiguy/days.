@@ -45,11 +45,7 @@ function animateSlides() {
         const pageTl = gsap.timeline();
         let nextSlide = slides.length - 1 === i ? "end" : slides[i + 1];
         pageTl.fromTo(nextSlide, { y: "0%" }, { y: "50%" });
-        pageTl.fromTo(
-            slide,
-            { opacity: 1, scale: 1 },
-            { opacity: 0, scale: 0.5 }
-        );
+        pageTl.fromTo(slide, { opacity: 1, scale: 1 }, { opacity: 0, scale: 0.5 });
         pageTl.fromTo(nextSlide, { y: "50%" }, { y: "0%" }, "-=0.5");
 
         // Create new scene
@@ -133,6 +129,7 @@ function navToggle(e) {
 
 burger.addEventListener("click", navToggle);
 window.addEventListener("mousemove", cursor);
+window.addEventListener("mousewheel", cursor);
 window.addEventListener("mouseover", activeCursor);
 
 animateSlides();

@@ -171,6 +171,10 @@ body {
     top: -15%;
 }
 
+.reveal-img {
+    height: calc(150% + 100px) !important;
+}
+
 .cursor {
     width: 3rem;
     height: 3rem;
