@@ -1,4 +1,4 @@
-let controller, slideScene, pageScene;
+let controller, slideScene, pageScene, detailScene;
 const mouse = document.querySelector(".cursor"),
     mouseTxt = mouse.querySelector("span"),
     burger = document.querySelector(".burger");
