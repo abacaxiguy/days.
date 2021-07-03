@@ -116,9 +116,51 @@ function navToggle(e) {
     }
 }
 
+// Barba
+barba.init({
+    views: [
+        {
+            namespace: "home",
+            beforeEnter() {
+                animateSlides();
+            },
+            beforeLeave() {
+                slidesScene.destroy();
+                pageScene.destroy();
+                controller.destroy();
+            },
+        },
+        {
+            namespace: "fashion",
+            beforeEnter() {
+                gsap.fromTo(".nav-header", 1.5, { y: "-100%" }, { y: "0%", ease: "power2.inOut" });
+            },
+        },
+    ],
+    transitions: [
+        {
+            leave({ current, next }) {
+                let done = this.async();
+
+                // Animation
+                const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+                tl.fromTo(current.container, 1, { opacity: 1 }, { opacity: 0 });
+                tl.fromTo(".swipe", 0.75, { y: "-100%" }, { y: "0%", onComplete: done }, "-=0.5");
+            },
+            enter({ current, next }) {
+                let done = this.async();
+
+                window.scrollTo(0, 0);
+                // Animation
+                const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+                tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 });
+                tl.fromTo(".swipe", 1, { y: "0%" }, { y: "100%", stagger: 0.25, onComplete: done }, "-=0.5");
+            },
+        },
+    ],
+});
+
 burger.addEventListener("click", navToggle);
 window.addEventListener("mousemove", cursor);
 window.addEventListener("scroll", cursor);
 window.addEventListener("mouseover", activeCursor);
-
-animateSlides();

@@ -9,6 +9,16 @@ body {
     background: #17181a;
     font-family: "Montserrat", sans-serif;
     overflow-x: hidden;
+    position: relative;
+}
+
+main {
+    pointer-events: none;
+    position: absolute;
+}
+
+a {
+    pointer-events: all !important;
 }
 
 #logo {
@@ -291,7 +301,7 @@ body.hide {
 
 .fashion2 .fashion-text span,
 .fashion2 h1 {
-    color: rgb(86, 124, 228) !important;
+    color: rgb(86, 124, 228);
 }
 
 .fashion3 .fashion-text span,
@@ -312,4 +322,28 @@ body.hide {
     left: 0%;
     color: white;
     opacity: 0.2;
+}
+
+.swipe {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transform: translateY(-100%);
+}
+
+.swipe1 {
+    background: rgb(167, 110, 231);
+    z-index: 5;
+}
+
+.swipe2 {
+    background: rgb(255, 139, 93);
+    z-index: 4;
+}
+
+.swipe3 {
+    background: rgb(86, 124, 228);
+    z-index: 3;
 }
