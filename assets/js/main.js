@@ -25,7 +25,7 @@ function animateSlides() {
         slideTl.fromTo(revealImg, { x: "0%" }, { x: "100%" });
         slideTl.fromTo(img, { scale: 2 }, { scale: 1 }, "-=1");
         slideTl.fromTo(revealText, { x: "0%" }, { x: "100%" }, "-=0.75");
-        slideTl.fromTo(nav, { y: "-100%" }, { y: "0%" }, "-=0.5");
+        slideTl.fromTo(".nav-header", 1, { y: "-100%" }, { y: "0%" }, "-=0.5");
 
         // Create scene
         slideScene = new ScrollMagic.Scene({
@@ -69,9 +69,13 @@ function activeCursor(e) {
     } else {
         mouse.classList.remove("nav-active");
     }
+    // Fashion img
+    if (item.tagName == "IMG") {
+        mouse.classList.add("img-active");
+    } else mouse.classList.remove("img-active");
 
-    // Explore effects
     if (item.classList.contains("explore")) {
+        // Explore effects
         mouse.classList.add("explore-active");
         gsap.to(".title-swipe", 1, { y: "0%" });
         mouseTxt.innerText = "Tap";
@@ -117,12 +121,14 @@ function navToggle(e) {
 }
 
 // Barba
+const logo = document.querySelector("#logo");
 barba.init({
     views: [
         {
             namespace: "home",
             beforeEnter() {
                 animateSlides();
+                logo.href = "./index.html";
             },
             beforeLeave() {
                 slidesScene.destroy();
@@ -133,7 +139,11 @@ barba.init({
         {
             namespace: "fashion",
             beforeEnter() {
-                gsap.fromTo(".nav-header", 1.5, { y: "-100%" }, { y: "0%", ease: "power2.inOut" });
+                logo.href = "../index.html";
+                detailAnimation();
+            },
+            beforeLeave() {
+                controller.destroy();
             },
         },
     ],
@@ -149,16 +159,38 @@ barba.init({
             },
             enter({ current, next }) {
                 let done = this.async();
-
+                console.log(current);
                 window.scrollTo(0, 0);
                 // Animation
                 const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
                 tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 });
                 tl.fromTo(".swipe", 1, { y: "0%" }, { y: "100%", stagger: 0.25, onComplete: done }, "-=0.5");
+                if (current.namespace !== "fashion") {
+                    tl.fromTo(".nav-header", 1, { y: "-100%" }, { y: "0%" }, "-=0.5");
+                }
             },
         },
     ],
 });
+
+function detailAnimation() {
+    controller = new ScrollMagic.Controller();
+    const slides = document.querySelectorAll(".detail-slide");
+    slides.forEach((slide, i, slides) => {
+        const slideTl = gsap.timeline({ defaults: { duration: 1 } });
+        let nextSlide = slides.length - 1 === i ? "end" : slides[i + 1];
+        const nextImg = nextSlide.querySelector("img");
+        slideTl.fromTo(slide, { opacity: 1 }, { opacity: 0 });
+
+        detailScene = new ScrollMagic.Scene({
+            triggerElement: slide,
+            duration: "100%",
+            triggerHook: 0,
+        })
+            .setTween(slideTl)
+            .addTo(controller);
+    });
+}
 
 burger.addEventListener("click", navToggle);
 window.addEventListener("mousemove", cursor);

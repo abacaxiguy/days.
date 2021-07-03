@@ -17,7 +17,8 @@ main {
     position: absolute;
 }
 
-a {
+a,
+img {
     pointer-events: all !important;
 }
 
@@ -207,6 +208,13 @@ a {
     transform: scale(3);
 }
 
+.cursor.img-active {
+    background: white;
+    border-color: rgb(255, 139, 93);
+    mix-blend-mode: exclusion;
+    transform: scale(3);
+}
+
 .cursor-text {
     position: absolute;
     top: 50%;
@@ -250,24 +258,28 @@ body.hide {
 
 /* other pages */
 
+.main-fashion {
+    padding-top: 15rem;
+}
+
 .fashion1,
 .fashion2,
 .fashion3 {
-    min-height: 90vh;
+    min-height: 120vh;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 70%;
+    margin-top: -150px !important;
+    margin-bottom: 20rem !important;
     margin: auto;
     color: white;
-    margin-top: 5rem;
     flex-wrap: wrap;
     position: relative;
-    margin-bottom: 14rem;
 }
 
 .fashion3 {
-    margin-bottom: 6rem;
+    margin-bottom: 3rem !important;
 }
 
 .fashion-img {
