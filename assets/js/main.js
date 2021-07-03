@@ -165,7 +165,7 @@ barba.init({
                 const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
                 tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 });
                 tl.fromTo(".swipe", 1, { y: "0%" }, { y: "100%", stagger: 0.25, onComplete: done }, "-=0.5");
-                if (current.namespace !== "fashion") {
+                if (current.namespace !== "home") {
                     tl.fromTo(".nav-header", 1, { y: "-100%" }, { y: "0%" }, "-=0.5");
                 }
             },
